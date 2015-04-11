@@ -48,6 +48,7 @@ class WelcomeController extends Controller {
     /**
      * @return \Illuminate\View\View
      * Проверяем ссылки на доступность
+     * Метод работает через роутер
      */
     public function checkUrl()
     {
