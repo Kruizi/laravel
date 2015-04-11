@@ -8,6 +8,15 @@ class WelcomeController extends Controller {
      */
     public function index()
     {
+        /**
+         * Берем URL(Из бд или еще откуда-нибудь)
+         * Отправляем ее в функцию
+         * Функция возращает ссылки которые она нашла
+         * Далее проверяем на существование ссылки
+         * Через for делаем цикл на проверку доступности
+         * И добавляем в БД, потом через админку мы увидим какие ссылки доступны, какие нет
+         * Если что потом можем изменить
+         */
         $url = 'http://php.net/';
         $isDomainAvailible = $this->isDomainAvailible($url);
         if (!empty($isDomainAvailible)) {
