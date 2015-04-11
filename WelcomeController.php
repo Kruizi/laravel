@@ -8,15 +8,16 @@ class WelcomeController extends Controller {
      */
     public function index()
     {
-        $isDomainAvailible = $this->_isDomainAvailible('http://php.net/');
+        $url = 'http://php.net/';
+        $isDomainAvailible = $this->isDomainAvailible($url);
         if (!empty($isDomainAvailible)) {
             for($i = 0; $i < count($isDomainAvailible['1']); $i++)
             {
+                $good = get_headers($url.$isDomainAvailible['1'][$i], 1);
                 $people = People::insertGetId(
-                    array('desc' => ''.$isDomainAvailible['1'][$i].'')
+                    array('name' => ''.$good['0'].'','desc' => ''.$isDomainAvailible['1'][$i].'')
                 );
             }
-            $good = 'Good';
         }else
         {
             $good = 'Error array';
@@ -27,7 +28,7 @@ class WelcomeController extends Controller {
     /**
      * @return array
      */
-    private function _isDomainAvailible($url)
+    private function isDomainAvailible($url)
     {
         $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL,$url);
