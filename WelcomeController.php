@@ -1,10 +1,6 @@
-<?php
-    /**
-     * Подключаем все что нужно laravel
-     */
-    namespace Laravel\Http\Controllers;
-    use Illuminate\Routing\Controller;
-    use DB;
+<?php namespace Laravel\Http\Controllers;
+use Illuminate\Routing\Controller;
+use DB;
 class WelcomeController extends Controller {
 
     /**
@@ -12,10 +8,6 @@ class WelcomeController extends Controller {
      */
     public function index()
 	{
-        /**
-         * Берем массив который пришел и проводим его по for тем самым добавляя в БД чтобы потом проверить на
-         * Доступность
-         */
         $isDomainAvailible = $this->isDomainAvailible('http://php.net/');
         if (!empty($isDomainAvailible)) {
             for($i = 0; $i < count($isDomainAvailible['1']); $i++)
