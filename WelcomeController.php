@@ -8,25 +8,25 @@ class WelcomeController extends Controller {
      */
     public function index()
     {
-        /**
-         * Берем URL(Из бд или еще откуда-нибудь)
-         * Отправляем ее в функцию
-         * Функция возращает ссылки которые она нашла
-         * Далее проверяем на существование ссылки
-         * Через for делаем цикл на проверку доступности
-         * И добавляем в БД, потом через админку мы увидим какие ссылки доступны, какие нет
-         * Если что потом можем изменить
-         */
         $url = 'http://php.net/';
         $isDomainAvailible = $this->isDomainAvailible($url);
         if (!empty($isDomainAvailible)) {
             for($i = 0; $i < count($isDomainAvailible['1']); $i++)
             {
-                $good = get_headers($url.$isDomainAvailible['1'][$i], 1);
-                $people = People::insertGetId(
-                    array('name' => ''.$good['0'].'','desc' => ''.$isDomainAvailible['1'][$i].'')
-                );
+                if(strripos($isDomainAvailible['1'][$i], 'http') == 'true')
+                {
+                    People::insertGetId(
+                        array('desc' => ''.substr($isDomainAvailible['1'][$i], strlen($url)).'')
+                    );
+                }else
+                {
+                    People::insertGetId(
+                        array('desc' => ''.$isDomainAvailible['1'][$i].'')
+                    );
+                }
+                /**/
             }
+            $good = People::get();
         }else
         {
             $good = 'Error array';
@@ -36,6 +36,7 @@ class WelcomeController extends Controller {
 
     /**
      * @return array
+    $good = get_headers($url.$isDomainAvailible['1'][$i], 1);
      */
     private function isDomainAvailible($url)
     {
