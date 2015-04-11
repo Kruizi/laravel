@@ -1,18 +1,18 @@
 <?php namespace Laravel\Http\Controllers;
 use Illuminate\Routing\Controller;
-use DB;
+use Laravel\People;
 class WelcomeController extends Controller {
 
     /**
      * @return \Illuminate\View\View
      */
     public function index()
-	{
+    {
         $isDomainAvailible = $this->isDomainAvailible('http://php.net/');
         if (!empty($isDomainAvailible)) {
             for($i = 0; $i < count($isDomainAvailible['1']); $i++)
             {
-                DB::table('peoples')->insertGetId(
+                $people = People::insertGetId(
                     array('desc' => ''.$isDomainAvailible['1'][$i].'')
                 );
             }
@@ -22,7 +22,7 @@ class WelcomeController extends Controller {
             $good = 'Error array';
         }
         return view('index', compact('good'));
-	}
+    }
 
     /**
      * @return array
