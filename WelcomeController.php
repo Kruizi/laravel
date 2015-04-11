@@ -8,7 +8,7 @@ class WelcomeController extends Controller {
      */
     public function index()
     {
-        $isDomainAvailible = $this->isDomainAvailible('http://php.net/');
+        $isDomainAvailible = $this->_isDomainAvailible('http://php.net/');
         if (!empty($isDomainAvailible)) {
             for($i = 0; $i < count($isDomainAvailible['1']); $i++)
             {
@@ -27,7 +27,7 @@ class WelcomeController extends Controller {
     /**
      * @return array
      */
-    private function isDomainAvailible($url)
+    private function _isDomainAvailible($url)
     {
         $ch = curl_init();
         curl_setopt ($ch, CURLOPT_URL,$url);
