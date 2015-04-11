@@ -1,6 +1,6 @@
 <?php namespace Laravel;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class People extends Model {
+class People extends Eloquent {
 }
