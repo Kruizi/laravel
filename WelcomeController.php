@@ -72,7 +72,6 @@ class WelcomeController extends Controller {
 
     /**
      * @return array
-    $good = get_headers($url.$isDomainAvailible['1'][$i], 1);
      */
     private function isDomainAvailible($url)
     {
